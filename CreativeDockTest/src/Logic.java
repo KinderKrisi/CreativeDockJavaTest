@@ -40,6 +40,7 @@ public class Logic {
 		try{
 			String s = target.request(MediaType.APPLICATION_JSON).get(String.class);
 			JSONArray array = new JSONArray(s);
+			if(array.length() > 0){
 			for(int i = 0; i< array.length(); i++){
 				JSONObject obj = (JSONObject) array.get(i);
 				fillLoan(obj);
@@ -48,11 +49,16 @@ public class Logic {
 			Collections.sort(loans, new LoanComparator());
 			findNew();
 			}
+			else{
+				System.out.println("Didn't receive any loans from service");
+			}
+			}
 		catch(Exception e){
 			e.printStackTrace();
 			}
 		}
 	private void findNew(){
+		if(loans.size() > 0){
 		if(sizeOfList > loans.size() && sizeOfList < 0){
 			System.out.println("sizeOflist is out of bounds"
 					+ "-> starting from 0 to avoid error");
@@ -62,6 +68,10 @@ public class Logic {
 				System.out.println(loans.get(i).toString());
 			}
 			this.sizeOfList = loans.size();
+		}
+		else{
+			System.out.println("There are no loans");
+		}
 	}
 	private boolean isLoanInArray(List<Loan> loans, Loan loan){
 		for(int i =0; i< loans.size(); i++){

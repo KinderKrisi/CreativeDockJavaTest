@@ -1,7 +1,7 @@
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class WaitingThread implements Runnable{
+public class ServerThread implements Runnable{
 
 	Logic logic = new Logic();
 	int sleepTimeMin = 5 * 60 * 1000;
